@@ -74,15 +74,18 @@
             if (currentSymbol == newData[i].Symbol) {
               var ZD = (newData[i].NewPrice - newData[i].LastClose);
               var curRate = (ZD / newData[i].LastClose * 100).toFixed(2) + '%';
-              _this.find('.showPrice1').html(newData[i].NewPrice);
-              _this.find('.showPrice2').html(curRate);
-              if (ZD > 0) {
-                _this.find('.showPrice1').css('color', 'red');
-                _this.find('.showPrice2').css('color', 'red');
-              } else {
-                _this.find('.showPrice1').css('color', 'green');
-                _this.find('.showPrice2').css('color', 'green');
+              if (newData[i].LastClose !== null){
+                  _this.find('.showPrice1').html(newData[i].NewPrice);
+                  _this.find('.showPrice2').html(curRate);
+                  if (ZD > 0) {
+                      _this.find('.showPrice1').css('color', 'red');
+                      _this.find('.showPrice2').css('color', 'red');
+                  } else {
+                      _this.find('.showPrice1').css('color', 'green');
+                      _this.find('.showPrice2').css('color', 'green');
+                  }
               }
+
             }
           })
 
