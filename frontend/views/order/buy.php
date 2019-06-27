@@ -300,12 +300,10 @@
         </li>
       </ul>
       <ul class="mui-table-view mui-in-zero  mui-table-view-inverted-2">
-        <li class="mui-table-view-cell  mui-media">
+        <li style="display: none" class="mui-table-view-cell  mui-media">
             <?php if ($productInfo->currency == 1) { ?>
-              <span class="mui-pull-right">暂无</span>
-              <div class="mui-media-body mui-ellipsis">
-                <span class="uk-text-muted">汇率</span>
-              </div>
+
+
               <input type="hidden" id="currency" value="1">
             <?php } else {
                 if ($productInfo->currency == 2) { ?>
@@ -341,16 +339,11 @@
             <span class="uk-text-muted">交易手续费（元）</span>
           </div>
         </li>
-        <li class="mui-table-view-cell  mui-media" style="display: <?= $model_type == 1 ? 'block' : 'none' ?>">
+        <li style="display: none" class="mui-table-view-cell  mui-media" style="display: <?= $model_type == 1 ? 'block' : 'none' ?>">
           <div class="mui-table">
-            <div class="mui-table-cell mui-col-xs-8">
-              <div class="mui-ellipsis">
-                                <span class="uk-text-muted">积分抵扣(<font
-                                    style="font-size: 12px">积分:<?= $points ?>,满1000可用</font>)</span>
-              </div>
-            </div>
-            <div class="mui-table-cell mui-col-xs-4">
-              <div class="uk-input-blank uk-input-blank-select uk-input-blank-inverted uk-input-blank-select-small">
+
+            <div  class="mui-table-cell mui-col-xs-4">
+              <div  class="uk-input-blank uk-input-blank-select uk-input-blank-inverted uk-input-blank-select-small">
                 <select id="points" class="uk-input uk-input-small uk-text-top" name="info[points]" id="discount"
                         onchange="use_discount()">
                   <option value="0">不使用积分</option>
