@@ -4,8 +4,8 @@ return [
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=fuxing',
-            'username' => 'root',
-            'password' => 'root',
+            'username' => 'fuxing',
+            'password' => '738BytjjyFsC7e8x',
             'charset' => 'utf8',
             'tablePrefix' => ''
         ],
