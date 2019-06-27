@@ -7,12 +7,7 @@
     <img src="/wap/img/user_icon_06.png"/>
     <p><?=u()->nickname?></p>
   </div>
-  <div class="rig_posi">
-    <div>
-      <a href="<?= url(['user/message']) ?>"><img src="/wap/img/user_icon_03.png"/></a>
-      <span></span>
-    </div>
-  </div>
+
   <div class="ban_navbar" style="display: flex;justify-content: center;align-items: center;">
     <ul>
       <li style="display: flex;justify-content: center;width: 100%">

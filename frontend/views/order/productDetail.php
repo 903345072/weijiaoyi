@@ -36,7 +36,6 @@ html{
       <?php endif ?>
     <span>【<?= $products->name ?>】</span>
   </h1>
-  <a href="<?= url(['rule/rule' . $products->id]) ?>">规则说明</a>
 </div>
 <div class="fadein_header">
   <ul id="tabBtns" >

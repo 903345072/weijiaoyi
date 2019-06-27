@@ -3314,7 +3314,7 @@ select:focus {
 .mui-checkbox input[type=checkbox],
 .mui-radio input[type=radio] {
 	position: absolute;
-	top: 4px;
+	top: -17px;
 	right: 10px;
 	display: inline-block;
 	width: 24px;
