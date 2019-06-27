@@ -9,8 +9,8 @@ $config = [
         'db' => [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=127.0.0.1;dbname=fuxing',
-            'username' => 'fuxing',
-            'password' => '738BytjjyFsC7e8x',
+            'username' => 'root',
+            'password' => 'root',
             'charset' => 'utf8',
         ],
     ],
