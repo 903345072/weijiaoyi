@@ -36,6 +36,7 @@ class ArticleController extends \admin\components\Controller
         $model = Article::findModel($id);
 
         if ($model->load(post())) {
+           $model->content = clean($model->content);
             if ($model->save()) {
                 return success();
             } else {

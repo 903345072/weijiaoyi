@@ -115,6 +115,7 @@
 mui.init();
 </script>
 <script type="text/javascript">
+    countdown=60;
     // 验证码
     $("#verifyCodeBtn").click(function () {
         var mobile = $('#mobile_show').val();
@@ -123,6 +124,8 @@ mui.init();
             layer.msg('您输入的不是一个手机号！');
             return false;
         }
+        var obj = $('.fr')
+        settime(obj);
         $.post(url, {mobile: mobile}, function(msg) {
             layer.msg(msg.info);
         }, 'json');
@@ -143,4 +146,21 @@ mui.init();
             return false;
         });
     });
+
+    function settime(obj) { //发送验证码倒计时
+        if (countdown == 0) {
+            obj.attr('disabled',false);
+            //obj.removeattr("disabled");
+            obj.val("获取手机验证码");
+            countdown = 60;
+            return;
+        } else {
+            obj.attr('disabled',true);
+            obj.val(countdown);
+            countdown--;
+        }
+        setTimeout(function() {
+                settime(obj) }
+            ,1000)
+    }
 </script>

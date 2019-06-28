@@ -126,7 +126,7 @@
             }
           }
           var oobj = msg.data;
-          console.log(oobj);
+          console.log(oobj+'我是平仓订单');
           for (var key_ in oobj) {
             console.log("#position_" + key_);
             $("#position_" + key_).css("display", "none");

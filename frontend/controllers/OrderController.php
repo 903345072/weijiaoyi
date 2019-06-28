@@ -53,7 +53,6 @@ class OrderController extends \frontend\components\Controller
         {
             if(!in_array($v, $order_id)) $order_id_arr[$v] = $v;
         }
-
         return success($data, $order_id_arr);
 //        return success($data);
     }

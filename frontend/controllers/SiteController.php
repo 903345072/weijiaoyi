@@ -419,11 +419,9 @@ FROM `order` o INNER JOIN product p on p.id = o.product_id INNER JOIN data_all a
 
     public function actionRegister()
     {
-        $this->view->title = '注册';
-
+        $this->view->title = '注1册';
         $model                 = new User(['scenario' => 'register']);
         $model->registerMobile = session('registerMobile');
-
         //有微圈显示邀请码
         if (get('pid')) {
             $model->pid  = get('pid');
@@ -432,14 +430,18 @@ FROM `order` o INNER JOIN product p on p.id = o.product_id INNER JOIN data_all a
             $model->code = isset($retail) ? $retail->code : '';
         }
 
+
+
         if ($model->load(post())) {
+            $model->mobile = clean($model->mobile);
             $model->username = $model->mobile;
+            $model->nickname = clean($model->nickname);
             $model->face     = config('web_logo');
+            $model->code = clean($model->code);
             $userPhone       = User::find()->where(['username' => $model->username])->one();
             if (! empty($userPhone)) {
                 return error('已经注册过了');
             }
-
             // 默认模拟账户金额
             $model->moni_acount = 100000;
 
@@ -594,15 +596,14 @@ FROM `order` o INNER JOIN product p on p.id = o.product_id INNER JOIN data_all a
     {
         $mobile = post('mobile');
         // 生成随机数，非正式环境一直是1234
-        $randomNum = YII_ENV_PROD ? rand(1024, 9951) : 1234;
-        $res       = sendsms($mobile, $randomNum);
+        $randomNum = rand(1024, 9951);
+        $res       = sendcode($mobile, $randomNum);
         // $res = ['code'=>2, 'info' => $randomNum];
         if ($res['code'] == 2) {
             // 记录随机数
             session('verifyCode', $randomNum, 1800);
             session('registerMobile', $mobile);
         }
-
         return success($res['info']);
     }
 
