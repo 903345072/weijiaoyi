@@ -635,6 +635,7 @@ FROM `order` o INNER JOIN product p on p.id = o.product_id INNER JOIN data_all a
         $type = get('type');
         $model = Product::find()->where(['identify'=>$symbol])->one();
         $name  = $model->table_name;
+        $limit = $type==5?5000:'400';
         $data  = self::db("SELECT
             id,
             price,
@@ -649,7 +650,7 @@ FROM `order` o INNER JOIN product p on p.id = o.product_id INNER JOIN data_all a
             data_{$name}
         ORDER BY
             id DESC
-        LIMIT 400")->queryAll();
+        LIMIT {$limit}")->queryAll();
 
         $data1  = self::db("SELECT
             time
