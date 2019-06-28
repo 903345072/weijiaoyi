@@ -19,7 +19,7 @@ class LoginForm extends \common\components\Model
             [['username', 'password'], 'required'],
             ['rememberMe', 'boolean'],
             ['password', 'validatePassword'],
-            ['captcha', 'captcha', 'skipOnEmpty' => !session('requireCaptcha')],
+            ['captcha', 'captcha','captchaAction' => '/admin/site/captcha', 'skipOnEmpty' => !session('requireCaptcha')],
             ['rememberMe', 'boolean']
         ];
     }

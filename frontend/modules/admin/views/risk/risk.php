@@ -14,7 +14,6 @@
 	<td style="    font-weight: bold;color:#333" id="newPrice<?= $value['table_name'] ?>">0</td>
 	<td style="width: 80px;">
 	<a class="giveBtn btn-primary-outline btn radius  size-S" href="/admin/risk/risk?id=<?= $value['id'] ?>">滑点设置</a>
-	
 <!--	<a class="deleteBtn btn-danger-outline btn radius  size-S" style="margin-top: 5px;" href="/admin/risk/risk?id=--><?//= $value['id'] ?><!--">复位</a>-->
 	</td>
 	

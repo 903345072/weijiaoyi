@@ -67,7 +67,6 @@ class SiteController extends \admin\components\Controller
         $this->view->title = '登录 - 管理系统';
 
         $model = new LoginForm;
-
         if ($model->load()) {
             if ($model->login()) {
                 session('requireCaptcha', false);

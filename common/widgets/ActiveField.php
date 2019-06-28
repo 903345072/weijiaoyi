@@ -160,7 +160,7 @@ class ActiveField extends \yii\widgets\ActiveField
     public function captcha($options = [])
     {
         $default = [
-            'captchaAction' => '/site/captcha',
+            'captchaAction' => '/admin/site/captcha',
             'template' => '{input} {image}',
             'options' => [
                 'class' => 'form-control'
