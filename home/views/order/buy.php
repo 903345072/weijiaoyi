@@ -310,10 +310,10 @@ body{
         <a href="javascript:;" class="on">持仓</a>
         <a href="javascript:;" class="">结算</a>
       </div>
-      <div class="order_list">
+      <div class="order_list" >
           <?php if (! empty($order_position)): ?>
               <?php foreach ($order_position as $v): ?>
-              <table class="tab1">
+              <table class="tab1 position_<?= $v->id ?>" >
                 <thead>
                 <?php if ($v->rise_fall == \frontend\models\Order::RISE): ?>
                   <th class="red">买涨<?= $v->hand ?>手</th>
@@ -352,7 +352,7 @@ body{
                   <td><?= $v->created_at ?></td>
                 </tr>
               </table>
-              <a href="javascript:;" flag="<?= $v->id ?>" class="kuaisumc sellOneBtn">快速卖出</a>
+            <a href="javascript:;" flag="<?= $v->id ?>"  class="kuaisumc sellOneBtn position_<?= $v->id ?>">快速卖出</a>
               <?php endforeach ?>
           <?php else: ?>
             <div class="no-order-data-msg">
@@ -516,7 +516,14 @@ body{
   })
 
   function updateOrder() {
-    $.post("<?= url('order/ajaxUpdateOrder')?>", {}, function (msg) {
+      <?php
+      $o_id = '';
+      foreach ($order_position as $v) {
+          $o_id .= $v->id . ',';
+      }
+      $order_id = trim($o_id, ',');
+      ?>
+    $.post("<?= url('order/ajaxUpdateOrder')?>", {o_id: "<?=$order_id?>"}, function (msg) {
       if (msg.state) {
         var obj = msg.info;
 
@@ -532,9 +539,8 @@ body{
         //console.log(oobj);
         for (var key_ in oobj) {
           //console.log("#position_"+key_);
-          $("#position_" + key_).css("display", "none");
+          $(".position_" + key_).css("display", "none");
         }
-
       }
     }, 'json');
   }
@@ -1123,7 +1129,6 @@ body{
         $('#textYR').html(ret.LastClose);
         $('#textYE').html(ret.Price2);
         $('#textMoney').html(ret.Amount);
-
         reCountFn();
       }
     });

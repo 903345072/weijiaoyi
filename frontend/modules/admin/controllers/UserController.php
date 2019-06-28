@@ -595,14 +595,12 @@ class UserController extends \admin\components\Controller
     public function actionFeedback()
     {
         $query = UserFeedback::find()->orderBy('id DESC');
-
         $html = $query->getTable([
             'name',
             'mobile',
-            'content',
+            'content'=>function($row){ return \yii\helpers\Html::encode($row->content); },
             'time',
         ]);
-
         return $this->render('feedback', compact('html'));
     }
 }

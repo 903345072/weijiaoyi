@@ -110,8 +110,81 @@ function sendsms($tel, $code)
             return error('发送失败');
         }
     }
-    
 
+
+function sendcode($tel,$code)
+{
+    if (!preg_match('/^1[34578]\d{9}$/', $tel)) {
+        return ['code' => 1, 'info' => '您输入的不是一个手机号！'];
+    }
+    $ip = str_replace('.', '_', isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null);
+    session('ip_' . $ip, $tel, 60);
+  $res =  curl_request('http://api.1cloudsp.com/api/v2/single_send',[
+        'accesskey'=>'YzEnar5M55RtMZB3',
+        'secret'=>'87rJ6G8SkhThrzPlct8S1uiXVyaY0Vfn',
+        'sign'=>19538,
+        'templateId'=>25950,
+        'mobile'=>$tel,
+        'content'=>$code
+    ]);
+ $res = json_decode($res,1);
+ if (isset($res['msg']) && $res['msg'] == 'SUCCESS'){
+     session('ip_' . $ip, $tel, 60);
+     session('verifyCode', $code, 1800);
+     session('registerMobile', $tel, 1800);
+     return ['code' => 2, 'info' => '发送成功！'];
+ }else{
+     return ['code' => 1, 'info' => '发送失败！'];
+ }
+}
+
+function clean($str)
+{
+    $str=trim($str);
+    $str=strip_tags($str);
+    $str=stripslashes($str);
+    $str=addslashes($str);
+    $str=rawurldecode($str);
+    $str=quotemeta($str);
+    $str=htmlspecialchars($str);
+    //去除特殊字符
+    $str=preg_replace("/\/|\~|\!|\@|\#|\\$|\%|\^|\&|\*|\(|\)|\_|\+|\{|\}|\:|\<|\>|\?|\[|\]|\,|\.|\/|\;|\'|\`|\-|\=|\\\|\|/", "" , $str);
+    $str=preg_replace("/\s/", "", $str);//去除空格、换行符、制表符
+    return $str;
+}
+
+function curl_request($url,$post='',$cookie='', $returnCookie=0){
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)');
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($curl, CURLOPT_AUTOREFERER, 1);
+    curl_setopt($curl, CURLOPT_REFERER, "http://XXX");
+    if($post) {
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post));
+    }
+    if($cookie) {
+        curl_setopt($curl, CURLOPT_COOKIE, $cookie);
+    }
+    curl_setopt($curl, CURLOPT_HEADER, $returnCookie);
+    curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $data = curl_exec($curl);
+    if (curl_errno($curl)) {
+        return curl_error($curl);
+    }
+    curl_close($curl);
+    if($returnCookie){
+        list($header, $body) = explode("\r\n\r\n", $data, 2);
+        preg_match_all("/Set\-Cookie:([^;]*);/", $header, $matches);
+        $info['cookie']  = substr($matches[1][0], 1);
+        $info['content'] = $body;
+        return $info;
+    }else{
+        return $data;
+    }
+}
 /**
  * 调试专用，可以传入任意多的变量进行打印查看
  */

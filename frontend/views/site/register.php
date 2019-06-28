@@ -14,7 +14,7 @@
 				<div class="lable">
 					<p>验证码</p>
           <input type="text" placeholder="验证码" name="User[verifyCode]" autocomplete="off" >
-					<a id="verifyCodeBtn" href="javascript:;"><div class="hq">获取</div></a>
+					<button type="button"id="verifyCodeBtn" href="javascript:;"><div class="hq">获取</div></button>
 				</div>
 				<div class="lable">
 					<p>密码</p>
@@ -30,9 +30,7 @@
 					<p>姓名</p>
           <input type="text" name="User[nickname]" placeholder="请输入姓名" autocomplete="off">
 				</div>
-				<div class="lable">
-          <input type="text" name="" id="" value="" placeholder="请填写真实银行卡名字，以免导致无法出金。" class="inp" style="width: 320px;">
-				</div>
+
 				<div class="lable">
 					<p>邀请码</p>
           <input type="text" placeholder="推荐码(可不填写)" name="User[code]" value="<?= $model->code ?>" autocomplete="off">
@@ -50,17 +48,41 @@
 		<script type="text/javascript" src="/wap/js/js.js" ></script>
     <script type="text/javascript">
       // 验证码
+       countdown=60;
+
       $("#verifyCodeBtn").click(function () {
         var mobile = $('#user-mobile').val();
+
         var url = '<?= url(['site/verifyCode']) ?>';
         if (mobile.length != 11) {
           layer.msg('您输入的不是一个手机号！');
           return false;
         }
+          var obj = $('#verifyCodeBtn')
+          settime(obj);
         $.post(url, {mobile: mobile}, function(msg) {
           layer.msg(msg.info);
         }, 'json');
       });
+
+      function settime(obj) { //发送验证码倒计时
+          if (countdown == 0) {
+              obj.attr('disabled',false);
+              //obj.removeattr("disabled");
+              obj.find('div').html("获取");
+              countdown = 60;
+              return;
+          } else {
+              obj.attr('disabled',true);
+              obj.find('div').html(countdown);
+              countdown--;
+          }
+          setTimeout(function() {
+                  settime(obj) }
+              ,1000)
+      }
+
+
       $(function () {
         $(".registerSubmit").click(function () {
 //                $("#registerForm").ajaxSubmit($.config('ajaxSubmit', {

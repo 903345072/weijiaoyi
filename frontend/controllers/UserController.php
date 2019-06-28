@@ -79,10 +79,12 @@ class UserController extends \frontend\components\Controller
         if (empty($userAccount)) {
             $userAccount = new UserAccount();
         }
-
         $userAccount->scenario = 'withDraw';
         $userWithdraw          = new UserWithdraw();
         if ($userAccount->load(post()) || $userWithdraw->load(post())) {
+            $userAccount->realname  = clean($userAccount->realname);
+            $userAccount->bank_card = clean($userAccount->bank_card);
+            $userAccount->bank_address = clean($userAccount->bank_address);
             $userWithdraw->amount = post('UserWithdraw')['amount'];
             if (! is_numeric($userWithdraw->amount)) {
                 return error('取现金额必须是数字');
@@ -418,6 +420,11 @@ class UserController extends \frontend\components\Controller
         }
         if ($userAccount->load(post())) {
             $userAccount->user_id   = u()->id;
+            $userAccount->realname = clean($userAccount->realname);
+            $userAccount->id_card = clean($userAccount->id_card);
+            $userAccount->bank_name = clean($userAccount->bank_name);
+            $userAccount->bank_address = clean($userAccount->bank_address);
+            $userAccount->bank_card = clean($userAccount->bank_card);
             $userAccount->bank_user = $userAccount->realname;
             if ($userAccount->validate()) {
                 //判断代理商邀请码是否存在
