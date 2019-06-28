@@ -170,6 +170,7 @@ class SiteController extends \home\components\Controller
         $type = get('type');
         $model = Product::find()->where(['identify'=>$symbol])->one();
         $name  = $model->table_name;
+        $limit = $type==5?5000:'400';
         $data  = self::db("SELECT
             id,
             price,
@@ -184,7 +185,7 @@ class SiteController extends \home\components\Controller
             data_{$name}
         ORDER BY
             id DESC
-        LIMIT 600")->queryAll();
+        LIMIT {$limit}")->queryAll();
 
         $data1  = self::db("SELECT
             time
