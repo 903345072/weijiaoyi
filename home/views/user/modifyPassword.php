@@ -1,6 +1,6 @@
 <div class="wrap1 clearfix houtai_content">
 
-  <div class="hover" style="position: absolute;left: 591px;top: 0;">
+  <div class="hover" style="position: absolute;left: 300px;top: 0;">
     <h3 class="mx clearfix">※ 修改密码
     </h3>
     <div class="cz_mx_content tx_content">

@@ -19,112 +19,12 @@ use common\models\DataCl;
 use console\models\GatherJincheng;
 class SiteController extends \frontend\components\Controller
 {
-    public $url = STOCKET_URL;
-
-    // 交易产品列表
-    public $productList = [
-        'sr0'=>'TJNI',
-        'm0'=>'TJCU',
-        'y0'=>'TJAP',
-        'p0'=>'TJPD',
-        'cl'    => 'TJAG',
-        'pp0' =>'TJAL',
-        //'a50'   => 'WGCNA0',
-        //'ixic'  => 'CENQA0',
-        //'bp'    => 'WICMBPA0',
-        //'ec'    => 'WICMECA0',
-        //'ad'    => 'WICMADA0',
-        //'cd'    => 'WICMCDA0',
-
-        //'au0' => 'SCau0001',
-        //'ag0' => 'SCag0001',
-        //'cu0' => 'SCcu0001',
-        //'ni0' => 'SCni0001',
-        //'bu0' => 'SCbu0001',
-        //'ru0' => 'SCru0001',
-        //'rb0' => 'SCrb0001',
-        //'p0'  => 'DCp0001',
-        //'sr0' => 'ZCSR0001',
-        //'m0'  => 'DCm0001',
-        //'y0'  => 'DCy0001',
-        //'pp0' => 'DCpp0001',
-
-        //'cl'    => 'NECLN0',
-        //'gc'    => 'CMGCQ0',
-        //'si'    => 'CMSIN0',
-        //'hg'    => 'CMHGN0',
-        //'dax'   => 'CEDAXM0',
-        //'hkhsi' => 'HIHSI06',
-        //'mhi'   => 'HIMHI06',
-        //'a50'   => 'WGCNM0',
-        //'ixic'  => 'CENQU0',
-        //'bp'    => 'WICMBPM0',
-        //'ec'    => 'WICMECM0',
-        //'ad'    => 'WICMADA0',
-        //'cd'    => 'WICMCDM0',
-        //
-        //'au0' => 'SCau1812',
-        //'ag0' => 'SCag1812',
-        //'cu0' => 'SCcu1807',
-        //'ni0' => 'SCni1809',
-        //'bu0' => 'SCbu1812',
-        //'ru0' => 'SCru1809',
-        //'rb0' => 'SCrb1810',
-        //'p0'  => 'DCp1809',
-        //'sr0' => 'ZCSR1809',
-        //'m0'  => 'DCm1809',
-        //'y0'  => 'DCy1809',
-        //'pp0' => 'DCpp1809',
-    ];
 
 
-    public function actionRun()
-    {
-        $obj = new Product();
-        foreach($this->productList as $k => $v){
-            $params = [
-                'u'      => STOCKET_USER,
-                'type'   => 'stock',
-                'symbol' => $v,
-            ];
-            $req = $this->sendRequest($this->url, $params, 'GET', []);
-            if ($req['ret']) {
 
-                $data[$k] = gzdecode($req['msg']);
-                $_data = json_decode($data[$k],true);
-                //$a = '[{"Date":"1546874802","Symbol":"NECLA0","Name":"美原油连续","Price3":47.96,"Vol2":1,"Open_Int":367400,"Price2":48.920624,"LastClose":48.31,"Open":48.3,"High":49.47,"Low":48.11,"NewPrice":49.26,"Volume":448074,"Amount":0,"BP1":49.25,"BP2":0,"BP3":0,"BP4":0,"BP5":0,"BV1":23,"BV2":0,"BV3":0,"BV4":0,"BV5":0,"SP1":49.26,"SP2":0,"SP3":0,"SP4":0,"SP5":0,"SV1":9,"SV2":0,"SV3":0,"SV4":0,"SV5":0,"PriceChangeRatio":1.96646}]';
-                if ($_data[0]){
-                    $_tmpArr = array_flip($this->productList);
-                    $_data = [
-                        'symbol'       => $_data[0]['Symbol'],
-                        'product_name' => $_data[0]['Name'],
-                        'price'        => 3*$_data[0]['NewPrice'],
-                        'time'         => date('Y-m-d H:i:s'),
-                        'diff'         => '',
-                        'diff_rate'    => $_data[0]['PriceChangeRatio'],
-                        'open'         => 3*$_data[0]['Open'],
-                        'high'         => 3*$_data[0]['High'],
-                        'low'          => 3*$_data[0]['Low'],
-                        'close'        => 3*$_data[0]['LastClose'],
-                        'bp'           => $_data[0]['BP1'],
-                        'sp'           => $_data[0]['SP1'],
-                        'bv'           => $_data[0]['BV1'],
-                        'sv'           => $_data[0]['SV1'],
-                        'date'         => $_data[0]['Date'],
-                    ];
-                    $os = $obj::findOne(['table_name'=>$k]);
-                    if (!empty($_tmpArr[$_data['symbol']])) {
 
-                        $_key = $_tmpArr[$_data['symbol']];
-                        self::dbUpdate('data_all', $_data, ['name' => $_key]);
-                    }
-                    // 监听是否有人应该平仓
-                    $this->listen();
-                }
-            }
-            sleep(3);
-        }
-    }
+
+
 
     /**
      * CURL发送Request请求,含POST和REQUEST
@@ -136,7 +36,6 @@ class SiteController extends \frontend\components\Controller
      *
      * @return array
      */
-
 
     public function sendRequest($url, $params = [], $method = 'POST', $options = [])
     {
@@ -202,70 +101,7 @@ class SiteController extends \frontend\components\Controller
             'msg' => $ret,
         ];
     }
-    protected function listen()
-    {
-        //$this->afterInsert();
-        // 更新所有持仓订单的浮亏
-//        self::db('  UPDATE
-//                        `order` o,
-//                        product p,
-//                        data_all a
-//                    SET
-//                        sell_price = a.price,
-//                        profit = IF (
-//                            o.rise_fall = ' . Order::RISE . ',
-//                            a.price - o.price,
-//                            o.price - a.price
-//                        ) * o.hand * o.one_profit
-//                    WHERE
-//                        a.name = p.`table_name`
-//                    AND o.product_id = p.id
-//                    AND o.order_state =  ' . Order::ORDER_POSITION . '
-//                    AND sell_price != a.price')
-//        ->execute();
-        // 获取所有品类当前交易状态
-        $productMap = $this->getAllTradeTime();
-        $extra      = [];
-        foreach ($productMap as $product => $isTrade) {
-            if ($isTrade === true) {
-                $extra[] = $product;
-            }
-        }
-        if ($extra) {
-            $extraWhere = ' OR (order_state = ' . Order::ORDER_POSITION . ' and product_id in (' . implode(',',
-                    $extra) . ') )';
-        } else {
-            $extraWhere = '';
-        }
 
-        // 获取所有止盈止损订单ID
-        $ids = self::db('SELECT o.id, a.price, o.rise_fall, o.product_id,o.stop_profit_price,o.stop_loss_price 
-FROM `order` o INNER JOIN product p on p.id = o.product_id INNER JOIN data_all a on a.name = p.table_name where 
-            ( o.order_state = ' . Order::ORDER_POSITION . ')' . $extraWhere)->queryAll();
-        array_walk($ids, function ($value) use ($extra) {
-            //最新价格
-            $price = $value['price'];
-            if ($value['rise_fall'] == Order::RISE) {
-                if ($price >= $value['stop_profit_price'] || $price <= $value['stop_loss_price']) {
-                    Order::sellOrder($value['id'], true, $price);
-                }
-            } else {
-
-                if ($price <= $value['stop_profit_price'] || $price >= $value['stop_loss_price']) {
-                    Order::sellOrder($value['id'], true, $price);
-                }
-            }
-
-            if (in_array($value['product_id'], $extra)) {
-                Order::sellOrder($value['id'], true, $price);
-            }
-        });
-//        $ids = self::db('SELECT id from `order` where (order_state = ' . Order::ORDER_POSITION . ' AND (
-//            profit + deposit <= 0 OR (profit <= stop_loss_price * -1 AND stop_loss_point <> 0) OR (profit >= stop_profit_price AND stop_profit_point <> 0)))' . $extraWhere)->queryAll();
-//        array_walk($ids, function ($value) {
-//            Order::sellOrder($value['id'], true);
-//        });
-    }
 
     protected function getAllTradeTime()
     {
@@ -285,17 +121,61 @@ FROM `order` o INNER JOIN product p on p.id = o.product_id INNER JOIN data_all a
         if (! parent::beforeAction($action)) {
             return false;
         } else {
-            $actions = ['login', 'register', 'forget', 'verify-code', 'kline', 'get-price','run','hynotify'];
+            $actions = ['login', 'register', 'forget', 'verify-code', 'kline', 'get-price','run','hynotify','ylnotify'];
             if (user()->isGuest && ! in_array($this->action->id, $actions)) {
                 $this->redirect(['site/login']);
-
                 return false;
             }
-
             return true;
         }
     }
+    public function actionYlnotify()      //亿联支付回调
+    {
+        $log = new FileTarget();
+        $log->logFile = Yii::getAlias('@givemoney/recharge.log');
+        $returnArray = array( // 返回字段
+            "memberid" => $_REQUEST["memberid"], // 商户ID
+            "orderid" =>  $_REQUEST["orderid"], // 订单号
+            "amount" =>  $_REQUEST["amount"], // 交易金额
+            "datetime" =>  $_REQUEST["datetime"], // 交易时间
+            "transaction_id" =>  $_REQUEST["transaction_id"], // 流水号
+            "returncode" => $_REQUEST["returncode"]
+        );
+        $md5key = "y8zes5689ug5pr2igw2b0rfzbet1r4wg";
+        ksort($returnArray);
+        reset($returnArray);
+        $md5str = "";
+        foreach ($returnArray as $key => $val) {
+            $md5str = $md5str . $key . "=" . $val . "&";
+        }
+        $sign = strtoupper(md5($md5str . "key=" . $md5key));
+        $log->messages[] = ['订单:'.$returnArray['orderid'].'充值:'.$returnArray['amount'].'签名:'.$_REQUEST["sign"].'校验签名:'.$sign,8,'application',time()];
+        $log->export();
+        if($_REQUEST["sign"] == $sign){
+            if ($_REQUEST["returncode"] == "00") {
+                $userCharge = UserCharge::find()->where('trade_no = :trade_no', [':trade_no' => $returnArray['orderid']])->one();
+                if (!empty($userCharge)) {
+                    //充值状态：1待付款，2成功，-1失败
+                    if ($userCharge->charge_state == 1) {
+                        //找到这个用户
+                        $user = User::findOne($userCharge->user_id);
 
+                        //给用户加钱
+                        $user->account += $userCharge->amount;
+                        if ($user->save()) {
+                            //更新充值状态---成功
+                            $userCharge->charge_state = 2;
+                        }
+                    }
+                    //更新充值记录表
+                    $res = $userCharge->update();
+                    if ($res){
+                        exit("ok");
+                    }
+                }
+            }
+        }
+    }
     public function actionHynotify()
     {
         $log = new FileTarget();

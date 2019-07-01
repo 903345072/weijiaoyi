@@ -107,7 +107,6 @@
     <script type="text/javascript" charset="utf-8">
       var account = '1q2w3e4r5t6y7u8i';
       var allSym = '<?= $productCode ?>';
-
       function updateOrder() {
         $.ajax({
             url: "<?=url('site/get-pro-list')?>" +'?symbol='+allSym,
@@ -152,7 +151,7 @@
         });
       }
       updateOrder();
-      setInterval(updateOrder, 1000);
+      setInterval(updateOrder, 600);
       mui.init();
       var gallery = mui('#slider');
       gallery.slider({

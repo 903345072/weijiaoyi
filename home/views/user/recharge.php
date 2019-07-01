@@ -1,7 +1,7 @@
 <div class="wrap1 clearfix houtai_content">
 
 
-  <div id="" class="hover" style="position: absolute;left: 591px;top: 0;">
+  <div id="" class="hover" style="position: absolute;left: 300px;top: 0;">
     <h3 class="mx clearfix">※ 账户充值
       <a href="javascript:;" class="fr jilu" id="page2Btn">充值记录></a>
     </h3>
@@ -36,9 +36,9 @@
       <div>
         <span class="tg ssw">选择充值方式：</span>
         <div class="lefts">
-          <a class="zhifubao on" href="javascript:;" data-type="1">在线支付</a>
+          <a class="zhifubao on" href="javascript:;" data-type="2">在线支付</a>
         </div>
-        <input type="hidden" name="type" id="type" value="1">
+        <input type="hidden" name="type" id="type" value="2">
       </div>
       <input type="submit" value="提交" class="tj_cz">
       </form>

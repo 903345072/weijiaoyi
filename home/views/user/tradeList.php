@@ -1,6 +1,6 @@
 <div class="wrap1 clearfix houtai_content">
 
-  <div class="hover" style="position: absolute;left: 591px;top: 0;">
+  <div class="hover" style="position: absolute;left: 300px;top: 0;">
     <h3 class="mx">※ 交易记录</h3>
     <div class="jy_jl_con">
       <div class="fz">

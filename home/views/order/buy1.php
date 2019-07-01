@@ -66,7 +66,7 @@ body{
 
 
 
-<div class="moni_content wrap1 clearfix jy_wrap hovers" style="width: 2500px;">
+<div class="moni_content wrap1 clearfix jy_wrap hovers" style="width: 2500px;margin-left:-5px">
   <div class="fl jiaoyi_left" >
     <div class="jiaoyi_head clearfix">
       <span class="jiaoyi_head_name fl"><?= $products->name ?> <?= $products->identify ?></span>

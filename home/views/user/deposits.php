@@ -1,7 +1,7 @@
 <div class="wrap1 clearfix houtai_content">
 
 
-  <div class="hover" id="" style="display: <?= (empty($page) || $page == 1) ? 'block' : 'none' ?>;position: absolute;left: 591px;top: 0;">
+  <div class="hover" id="" style="display: <?= (empty($page) || $page == 1) ? 'block' : 'none' ?>;position: absolute;left: 300px;top: 0;">
     <h3 class="mx clearfix">※ 账户提现
       <a href="javascript:;" id="page2Btn" class="fr jilu">提现记录></a>
     </h3>
