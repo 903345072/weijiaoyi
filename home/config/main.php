@@ -17,6 +17,7 @@ return [
             'class' => 'app\modules\pcwebsite\Pcwebsite', 
          ],
     ],
+
     'components' => [
         'user' => [
             'loginUrl' => is_access_admin() ? ['admin/site/login'] : ['site/login'],

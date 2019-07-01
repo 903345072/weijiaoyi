@@ -359,22 +359,17 @@ class UserController extends \frontend\components\Controller
         $this->view->title = '安全支付';
         $amount            = post('money',10);
         switch (post('type', 2)) {
-
             case '1':
-                UserCharge::hypay($amount, 'wangyin');//微信扫码支付
+                UserCharge::hypay($amount, 'wangyin');//微信扫码支付，翰银支付
                 break;
-
             case '2':
-                $html = UserCharge::znpay($amount, 'wxpay');//微信公众号支付
+                $paytype = 'wxpay';
+                $html = UserCharge::ylpay($amount,$paytype);//亿联支付
                 if (! $html) {
                     return $this->redirect(['site/wrong']);
                 }
-
-                return $this->render('gzh', compact('html'));
+                echo $html;
                 break;
-
-
-
             case '3':
                 $src = UserCharge::znpay($amount, 'alipay');//支付宝支付
                 if (! $src) {

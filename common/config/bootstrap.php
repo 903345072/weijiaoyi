@@ -11,7 +11,7 @@ const WX_MCHID = '10028878';
 const WX_KEY = 'weipansoftware610115199009263515';
 const WX_APPSECRET = 'd6c41e94ea5f1589e97238dc77d97e24';
 const WEB_DOMAIN = "http://www.weijiaoyi.com";
-
+const ly_notify = "http://www.zaddd.com/site/ylnotify";
 //数据采集
 const STOCKET_URL = "http://api.zb.cn/data/v1/ticker";
 const STOCKET_KURL = 'http://api.zb.cn/data/v1/kline';

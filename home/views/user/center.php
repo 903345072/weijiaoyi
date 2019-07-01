@@ -2,13 +2,10 @@
 
 
 
-  <div class="hover" style="position: absolute;left: 591px;top: 0;">
+  <div class="hover" style="position: absolute;left: 300px;top: 0;">
     <div class="r_list">
       <div class="houtai_right_top clearfix">
-        <div class="fl keyong">
-          <p class="name_n">可用积分</p>
-          <p class="total"><?= u()->points ?></p>
-        </div>
+
         <div class="fl keyong admin_yue">
           <p class="name_n">账户余额（元）</p>
           <p class="total"><?= u()->account - u()->blocked_account ?></p>
@@ -22,10 +19,7 @@
       <div class="houtai_scroll">
         <div class="clearfix">
           <img src="/web/images/tips.png " class="fl" alt="">
-          <a href="<?= url(['user/notice-info', 'notice_id' => $article->id]) ?>"
-             class="fl">最新公告：<?= $article->title ?></a>
-          <a href="<?= url(['user/notice-list']) ?>" class="more fr">更多公告>></a>
-          <p class="date fr"><?= $article->publish_time ?></p>
+          <a class="fl">最新公告：<?= $article->title ?></a>
         </div>
       </div>
       <div class="houtai_bottom">

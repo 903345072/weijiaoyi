@@ -169,16 +169,12 @@ class UserController extends \home\components\Controller
                 break;
 
             case '2':
-                $html = UserCharge::znpay($amount, 'wxpay');//微信公众号支付
+                $html = UserCharge::ylpay($amount, 'wxpay');//微信公众号支付
                 if (! $html) {
                     return $this->redirect(['site/wrong']);
                 }
-
-                return $this->render('gzh', compact('html'));
+               echo $html;
                 break;
-
-
-
             case '3':
                 $src = UserCharge::znpay($amount, 'alipay');//支付宝支付
                 if (! $src) {

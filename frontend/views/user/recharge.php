@@ -16,7 +16,7 @@
 				<li data-mode="20000">20000元</li>
 			</ul>
 			<div class="bot_btn">
-				<div class="fl" onclick="formSubmit(1)">
+				<div class="fl" onclick="formSubmit(2)">
 					<img src="/wap/img/wangyin.jpg"/>
 					<p>网银支付</p>
 				</div>
