@@ -11,8 +11,8 @@
           <p class="total"><?= u()->account - u()->blocked_account ?></p>
         </div>
         <div class="fl a_link">
-          <a href="<?= url(['user/recharge']) ?>" class="chongz">充值</a>
-          <a href="<?= url(['user/deposits']) ?>" class="tx">提现</a>
+          <a data-href="<?= url(['user/recharge']) ?>" href="javascript:void(0);" class="chongz sad">充值</a>
+          <a data-href="<?= url(['user/deposits']) ?>" href="javascript:void(0);" class="tx sad">提现</a>
         </div>
       </div>
       <!-- 通告 -->
@@ -168,4 +168,5 @@
   }
 
   setInterval(updateOrder, 1000);
+
 </script>

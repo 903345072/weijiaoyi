@@ -116,12 +116,20 @@
         var urls = $(this).attr('data-href')
         var index = layer.load(1)
     $.get(urls,{},function (res) {
-        console.log(res)
         layer.close(index);
         $('.hovers').html('')
         $('.hovers').html(res)
-
     })
     })
-
+  $(function () {
+      $(document).on('click','.sad',function () {
+          var urlss = $(this).attr('data-href');
+          var index1 = layer.load(1)
+          $.get(urlss,{},function (res) {
+              layer.close(index1);
+              $('.hovers').html('')
+              $('.hovers').html(res)
+          })
+      })
+  })
 </script>

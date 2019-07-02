@@ -25,7 +25,7 @@
         success: function (data) {
           if (data == 1) {
             alert('提交成功');
-            window.location.href = '<?= url(['user/center']) ?>';
+           location.reload()
           } else {
             alert('提交失败');
           }
