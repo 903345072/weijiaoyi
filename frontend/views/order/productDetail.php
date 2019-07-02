@@ -226,6 +226,7 @@ html{
         dataType:'json',
         success: function (ret) {
         dataO = dealNum(ret);
+        console.log(dataO)
         setEC();
       }
     });
