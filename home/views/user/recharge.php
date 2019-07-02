@@ -3,7 +3,7 @@
 
   <div id="" class="hover" style="position: absolute;left: 300px;top: 0;">
     <h3 class="mx clearfix">※ 账户充值
-      <a href="javascript:;" class="fr jilu" id="page2Btn">充值记录></a>
+<!--      <a href="javascript:;" class="fr jilu" id="page2Btn">充值记录></a>-->
     </h3>
     <div class="cz_mx_content">
       <div class="yue_money">
