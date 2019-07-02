@@ -322,15 +322,11 @@ html{
 
   setInterval(function () {
     getPriceFn();
-  }, 2500);
+  }, 1500);
 
   setInterval(function () {
     getData();
   }, 1000);
-  setInterval(function () {
-      getDataMin30();
-  }, 1000);
-
   getDay();
   getData();
 

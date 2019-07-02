@@ -70,15 +70,15 @@ body{
 <div class="moni_content wrap1 clearfix jy_wrap hovers" style="width: 2500px;">
   <div class="fl jiaoyi_left">
     <div class="jiaoyi_head clearfix">
-      <span class="jiaoyi_head_name fl"><?= $products->name ?> <?= $products->identify ?></span>
+      <span class="jiaoyi_head_name fl"><?= $products->name ?> <?= $products->table_name ?></span>
       <div class="fl jy_date_select switchTab">
-        <a href="javascript:getDataFn();" class="cursP am-u-sm-1 on">分时</a>
-        <a href="javascript:getDataFn();" class="cursP am-u-sm-1">日分时</a>
-        <a href="javascript:getDataFn();" class="cursP am-u-sm-1">1分钟</a>
-        <a href="javascript:getDataFn();" class="cursP am-u-sm-1">5分钟</a>
-        <a href="javascript:getDataMin30();" class="cursP am-u-sm-1">30分钟</a>
-        <a href="javascript:getDataFn();" class="cursP am-u-sm-1" style="display: none;">日K线</a>
-        <a href="javascript:;" class="cursP am-u-sm-1">盘口</a>
+        <a href="javascript:getDataFn();" class="cursP am-u-sm-1 on changeflag">分时</a>
+        <a href="javascript:getDataFn();" class="cursP am-u-sm-1 changeflag">日分时</a>
+        <a href="javascript:getDataFn();" class="cursP am-u-sm-1 changeflag">1分钟</a>
+        <a href="javascript:getDataFn();" class="cursP am-u-sm-1 changeflag">5分钟</a>
+        <a href="javascript:getDataMin30();" class="cursP am-u-sm-1 ">30分钟</a>
+        <a href="javascript:getDataFn();" class="cursP am-u-sm-1 changeflag" style="display: none;">日K线</a>
+        <a href="javascript:;" class="cursP am-u-sm-1 changeflag">盘口</a>
       </div>
     </div>
 
@@ -304,7 +304,7 @@ body{
     </div>
   </div>
   <div class="fl jiaoyi_right">
-    <h3 class="r-til"><?= $products->name ?> <?= $products->identify ?></h3>
+    <h3 class="r-til"><?= $products->name ?> <?= $products->table_name ?></h3>
     <div class="jiaoyi_r_con">
       <div class="clearfix abtn">
         <a href="javascript:;" class="on">持仓</a>
@@ -469,6 +469,10 @@ body{
 <script type="text/javascript" src="/js/echarts-all-3-order.js"></script>
 <script type="text/javascript" src="/pc/js/layer.js"></script>
 <script type="text/javascript">
+    flag = 1;
+    $('.changeflag').click(function () {
+        flag = 1;
+    })
   $(function () {
     $(".abtn a").click(function () {
       var index = $(this).index();
@@ -1051,31 +1055,45 @@ body{
         }
       });
     });
-
-
   }
 
   function getDataFn() {
+      if (flag == 1){
+          $.ajax({
+              url: "<?=url('site/get-data')?>" + "?symbol="+symbol,
+              async: true,dataType:'json',
+              success: function (ret) {
+                  dataO = dealNum(ret);
+                  setEC();
+              }
+          });
+      }else{
+          $.ajax({
+              url: "<?=url('site/get-data')?>" + "?symbol="+symbol+'&type=5',
+              async: true,dataType:'json',
+              success: function (ret) {
+                  dataO = dealNumMin30(ret);
+                  setEC();
+              }
+          });
+      }
+
+  }
+
+
+  function getDataMin30() {
+      flag = 2;
     $.ajax({
-        url: "<?=url('site/get-data')?>" + "?symbol="+symbol,
+        url: "<?=url('site/get-data')?>" + "?symbol="+symbol+'&type=5',
       async: true,dataType:'json',
       success: function (ret) {
-        dataO = dealNum(ret);
-        setEC();
+          dataO = dealNumMin30(ret);
+          setEC();
       }
     });
   }
 
-  function getDataMin30() {
-    $.ajax({
-        url: "<?=url('site/get-data')?>" + "?symbol="+symbol+'&type=5',
-      async: true,
-      success: function (ret) {
-        dataO = dealNumMin30(ret);
-        setEC();
-      }
-    });
-  }
+
 
   function getDay() {
     $.ajax({
@@ -1136,18 +1154,17 @@ body{
   getDay();
   getDataFn();
   getPriceFn();
-  setInterval(function () {
-    getPriceFn();
-  }, 1000);
 
   setInterval(function () {
       updateOrder();
-  }, 1000);
+  }, 2000);
 
   setInterval(function () {
-    getDataFn();
-  }, 1000);
-
+      getPriceFn();
+  }, 2000);
+  setInterval(function () {
+      getDataFn();
+  }, 2000);
 
 
   function dealNum(d) {
