@@ -83,8 +83,11 @@ class SiteController extends \home\components\Controller
         $data['Price2'] = 0;
         $data['Amount'] = 0;
         $data['PriceChangeRatio']=0;
-        echo json_encode($data);
-        exit();
+        if ($data['LastClose']){
+            echo json_encode($data);
+            exit();
+        }
+
     }
     public function getNewClose($symbol){
         $k_params = [
