@@ -938,9 +938,6 @@
                         //window.location.reload();
                     }
                 }
-                setTimeout(function () {
-                    checkHold();
-                }, 2000)
             }
         });
 

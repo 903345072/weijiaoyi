@@ -906,6 +906,7 @@ body{
     });
 
   }()
+    checkHold()
 
   function checkHold() {
 
@@ -939,9 +940,7 @@ body{
             //window.location.reload();
           }
         }
-        setTimeout(function () {
-          checkHold();
-        }, 2000)
+
       }
     });
 
@@ -1165,7 +1164,9 @@ body{
   setInterval(function () {
       getDataFn();
   }, 2000);
-
+    setInterval(function () {
+        checkHold();
+    }, 2000);
 
   function dealNum(d) {
     var timeArr = [];
