@@ -151,7 +151,7 @@
         });
       }
       updateOrder();
-      setInterval(updateOrder, 600);
+      setInterval(updateOrder, 1500);
       mui.init();
       var gallery = mui('#slider');
       gallery.slider({
