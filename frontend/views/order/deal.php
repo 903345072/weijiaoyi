@@ -4,7 +4,7 @@
     <div class="fl on">产品列表</div>
 
   </div>
-  <a href="<?= url(['order/ruleplay']) ?>">玩法</a>
+
 </div>
 <div class="main_content">
   <!--<div class="fadein">
