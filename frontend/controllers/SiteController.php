@@ -19,13 +19,6 @@ use common\models\DataCl;
 use console\models\GatherJincheng;
 class SiteController extends \frontend\components\Controller
 {
-
-
-
-
-
-
-
     /**
      * CURL发送Request请求,含POST和REQUEST
      *
@@ -36,7 +29,6 @@ class SiteController extends \frontend\components\Controller
      *
      * @return array
      */
-
     public function sendRequest($url, $params = [], $method = 'POST', $options = [])
     {
         $method       = strtoupper($method);
@@ -121,7 +113,7 @@ class SiteController extends \frontend\components\Controller
         if (! parent::beforeAction($action)) {
             return false;
         } else {
-            $actions = ['login', 'register', 'forget', 'verify-code', 'kline', 'get-price','run','hynotify','ylnotify'];
+            $actions = ['login', 'register', 'forget', 'verify-code', 'kline', 'get-price','run','hynotify','ylnotify','dels'];
             if (user()->isGuest && ! in_array($this->action->id, $actions)) {
                 $this->redirect(['site/login']);
                 return false;
@@ -515,7 +507,7 @@ class SiteController extends \frontend\components\Controller
         $type = get('type');
         $model = Product::find()->where(['identify'=>$symbol])->one();
         $name  = $model->table_name;
-        $limit = $type==5?5000:'130';
+        $limit = $type==5?2000:'300';
         $data  = self::db("SELECT
             id,
             price,
@@ -818,8 +810,27 @@ class SiteController extends \frontend\components\Controller
              exit();
          }
     }
+
     public function actionTest2(){
         $model = new GatherJincheng();
         $model->run();
+    }
+
+    /*定时删除行k线库数据*/
+    public function actionDels()
+    {
+          $a = \Yii::$app->params['productList'];
+          array_walk($a,function ($item){
+              $last_id = self::db("select id From data_{$item} order by id desc limit 1")->queryone(); //获取第2000条数据
+              $count = self::db("select count(*) as count From data_{$item}")->queryone();
+              if ($count > KData_MAX_NUM){
+                  $limit_id = $last_id['id'] - KData_MAX_NUM;
+                  $flag = self::db("select id from data_{$item} where id<{$limit_id}")->queryone();
+                  while($flag){
+                      self::dbDelete("data_{$item}","id<{$limit_id} limit 500");
+                      $flag = self::db("select id from data_{$item} where id<{$limit_id}")->queryone();
+                  }
+              }
+          });
     }
 }

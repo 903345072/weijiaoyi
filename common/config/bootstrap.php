@@ -5,7 +5,7 @@
 const PAGE_SIZE = 10;
 const THEME_NAME = 'basic';
 const SECRET_KEY = 'ChisWill';
-
+const KData_MAX_NUM = 2000; //K线数据表单表最大数据
 const WX_APPID = 'wx9c55966a4b2c84a5';
 const WX_MCHID = '10028878';
 const WX_KEY = 'weipansoftware610115199009263515';

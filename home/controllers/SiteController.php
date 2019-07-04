@@ -175,7 +175,7 @@ class SiteController extends \home\components\Controller
         $type = get('type');
         $model = Product::find()->where(['identify'=>$symbol])->one();
         $name  = $model->table_name;
-        $limit = $type==5?5000:'130';
+        $limit = $type==5?2000:'300';
         $data  = self::db("SELECT
             id,
             price,
