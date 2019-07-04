@@ -119,7 +119,7 @@
                 if (currentSymbol == newData[i].Symbol) {
                   var ZD = (newData[i].NewPrice - newData[i].LastClose);
                   var curRate = (ZD / newData[i].LastClose * 100).toFixed(2) + '%';
-                  if (newData[i].LastClose !== null){
+
                       _this.find('.showPrice1').html(ZD.toFixed(2));
                       _this.find('.showPrice2').html(curRate);
                       var now_price = newData[i].NewPrice;
@@ -140,7 +140,7 @@
                           _this.find('.showPrice2').removeClass('red');
                           _this.find('.current_price').removeClass('red');
                       }
-                  }
+
 
 
                 }

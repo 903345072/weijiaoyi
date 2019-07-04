@@ -1,6 +1,7 @@
 <?php
 
 namespace console\models;
+use common\models\DataAll;
 use frontend\models\Product;
 use Yii;
 use \Exception;
@@ -97,7 +98,7 @@ class GatherJincheng extends Gather
                         'open'         => 0,
                         'high'         => $_data['ticker']['high'],
                         'low'          => $_data['ticker']['low'],
-                        'close'        => 0,
+                        'close'        => $this->getNewClose($v),
                         'bp'           => $_data['ticker']['buy'],
                         'sp'           => $_data['ticker']['sell'],
                         'bv'           => $_data['ticker']['vol'],
@@ -216,6 +217,27 @@ class GatherJincheng extends Gather
         }
 	}
 }
+
+    public function getNewClose($symbol){
+        $k_params = [
+            'market'      => $symbol,
+            'type'   => '1day',
+            'size'=>2
+        ];
+        $kline_data = $this->sendRequest(STOCKET_KURL, $k_params, 'GET', []);//k线数据
+        $kline_data = $kline_data['msg'];
+        $k_data = json_decode($kline_data,1);
+        $yes_close = $k_data['data'][0][4];
+        if ($yes_close){
+            return $yes_close;
+        }else{
+            $yes_close = DataAll::find()->where(['symbol'=>$symbol])->select('close')->one();
+            $yes_close = $yes_close['close'];
+            return $yes_close;
+        }
+
+    }
+
 
     /**
      * CURL发送Request请求,含POST和REQUEST

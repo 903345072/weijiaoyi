@@ -506,7 +506,7 @@ class SiteController extends \frontend\components\Controller
         $type = get('type');
         $model = Product::find()->where(['identify'=>$symbol])->one();
         $name  = $model->table_name;
-        $limit = $type==5?2000:'300';
+        $limit = $type==5?2000:'180';
         $data  = self::db("SELECT
             id,
             price,
@@ -801,13 +801,13 @@ class SiteController extends \frontend\components\Controller
 
          foreach ($data as $k=>&$v){
              $v['NewPrice'] = $v['price'];
-             $v['LastClose'] = $last_close = $this->getNewClose($v['symbol']);
+             $v['LastClose'] = $v['close'];
              $v['Symbol'] = $v['symbol'];
          }
-         if ($last_close){
+
              echo json_encode($data);
              exit();
-         }
+
     }
 
     public function actionTest2(){

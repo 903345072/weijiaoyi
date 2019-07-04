@@ -79,15 +79,12 @@ class SiteController extends \home\components\Controller
         $data['Open_Int'] = 0;
         $data['Price3'] = 0;
         $data['Low'] = $data['low'];
-        $data['LastClose'] = $this->getNewClose($data['symbol']);
+        $data['LastClose'] = $data['close'];
         $data['Price2'] = 0;
         $data['Amount'] = 0;
         $data['PriceChangeRatio']=0;
-        if ($data['LastClose']){
-            echo json_encode($data);
-            exit();
-        }
-
+        echo json_encode($data);
+        exit();
     }
     public function getNewClose($symbol){
         $k_params = [
