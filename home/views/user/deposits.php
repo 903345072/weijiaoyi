@@ -137,7 +137,7 @@
           // console.log(msg);return;
           if (msg['state']) {
             alert(msg['info']);
-            window.location.href = "<?= url(['user/deposits', 'page' => 2])?>";
+            location.reload()
           } else {
             if (msg['info'] instanceof Object) {
               alert(msg.info[Object.keys(msg.info)[0]])
