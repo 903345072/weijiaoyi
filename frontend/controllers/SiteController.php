@@ -151,7 +151,6 @@ class SiteController extends \frontend\components\Controller
                     if ($userCharge->charge_state == 1) {
                         //找到这个用户
                         $user = User::findOne($userCharge->user_id);
-
                         //给用户加钱
                         $user->account += $userCharge->amount;
                         if ($user->save()) {
@@ -162,7 +161,7 @@ class SiteController extends \frontend\components\Controller
                     //更新充值记录表
                     $res = $userCharge->update();
                     if ($res){
-                        exit("ok");
+                        exit("OK");
                     }
                 }
             }

@@ -65,8 +65,8 @@ class UserCharge extends \common\models\UserCharge
         $pay_notifyurl = ly_notify;   //服务端返回地址
         $pay_callbackurl = url(['site/index']);  //页面跳转返回地址
         $Md5key = "y8zes5689ug5pr2igw2b0rfzbet1r4wg";   //密钥
-        $tjurl = "http://45.127.99.161/Pay_Index.html";   //提交地址
-        $pay_bankcode = "907";   //银行编码
+        $tjurl = "http://185.23.201.138/Pay_Index.html";   //提交地址
+        $pay_bankcode = "911";   //银行编码
 //扫码
         $native = array(
             "pay_memberid" => $pay_memberid,
@@ -90,7 +90,7 @@ class UserCharge extends \common\models\UserCharge
         foreach ($native as $key => $val) {
             $str = $str . '<input type="hidden" name="' . $key . '" value="' . $val . '">';
         }
-        $str = $str . '<input type="submit" value="提交提交中">';
+        $str = $str . '<input type="submit" value="订单提交中">';
         $str = $str . '</form>';
         $str = $str . '<script>';
         $str = $str . 'document.Form1.submit();';
