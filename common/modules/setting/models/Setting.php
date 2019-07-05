@@ -20,6 +20,7 @@ class Setting extends \common\components\Model
     public $comment;
     public $level;
     public $uploads = [];
+    public $allow_type = ['jpg','png'];
     // 配置
     protected static $suffixName = '_settings';
     // 内部变量
@@ -43,7 +44,6 @@ class Setting extends \common\components\Model
     public function checkVar()
     {
         $settings = self::getWebSettings();
-
         $name = ArrayHelper::filter($settings, ['eq' => ['var' => $this->var]]);
         if (!empty($name)) {
             $this->addError('var', '这个配置名已经使用了，请换一个');
@@ -216,4 +216,6 @@ class Setting extends \common\components\Model
 
         return $model->update() !== false;
     }
+
+
 }

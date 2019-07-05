@@ -2,6 +2,8 @@
 
 namespace admin\controllers;
 
+use common\components\CheckFile;
+use common\models\User;
 use Yii;
 use common\helpers\Hui;
 use common\helpers\ArrayHelper;
@@ -60,7 +62,10 @@ class SystemController extends \admin\components\Controller
     public function actionSaveSetting()
     {
         $setting = new Setting;
-
+        $files = $_FILES[Upload]['tmp_name'];
+        if (!in_array(CheckFile::checkFile($files),$setting->allow_type)){
+            return self::error('请上传合法类型文件(包括jpg,png)');
+        }
         if ($setting->save()) {
             return self::success($setting->uploads);
         } else {
