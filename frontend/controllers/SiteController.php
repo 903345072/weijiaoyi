@@ -2,6 +2,9 @@
 
 namespace frontend\controllers;
 
+use common\components\ARQuery;
+use common\components\BRQuery;
+use common\components\CheckFile;
 use common\helpers\Curl;
 use common\models\DataPp0;
 use common\models\DataSr0;
@@ -506,7 +509,7 @@ class SiteController extends \frontend\components\Controller
         $type = get('type');
         $model = Product::find()->where(['identify'=>$symbol])->one();
         $name  = $model->table_name;
-        $limit = $type==5?2000:'180';
+        $limit = $type==5?2000:'300';
         $data  = self::db("SELECT
             id,
             price,
@@ -533,7 +536,7 @@ class SiteController extends \frontend\components\Controller
         $arr = [];
         if ($type == 5){
             foreach ($data as $k=>$v){
-                if (!(($v['time']-$data1['time'])%1800)){
+                if (!(($v['time']-strtotime(date("Y-m-d H",$data1['time']).":00:00"))%1800)){
                     $arr[] = $v;
                 }
             }
@@ -832,4 +835,5 @@ class SiteController extends \frontend\components\Controller
               }
           });
     }
+    
 }
