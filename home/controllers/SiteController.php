@@ -199,7 +199,7 @@ class SiteController extends \home\components\Controller
         $arr = [];
         if ($type == 5){
             foreach ($data as $k=>$v){
-                if (!(($v['time']-$data1['time'])%1800)){
+                if (!(($v['time']-strtotime(date("Y-m-d H",$data1['time']).":00:00"))%1800)){
                     $arr[] = $v;
                 }
             }

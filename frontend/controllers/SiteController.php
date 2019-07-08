@@ -835,5 +835,5 @@ class SiteController extends \frontend\components\Controller
               }
           });
     }
-    
+
 }
