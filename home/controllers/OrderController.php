@@ -622,6 +622,17 @@ class OrderController extends \home\components\Controller
     }
 
 
+    public function actionGetThrow()
+    {
+        $pid = get('pid');
+        $order_throw    = Order::find()->where([
+            'product_id'=>$pid,
+            'order_state'=>Order::ORDER_THROW,
+            'user_id'     => u()->id,
+            ])->asArray()->all();
+        return $order_throw;
+
+    }
 
 
     public function actionBuy1()

@@ -543,6 +543,7 @@
                 for (var key_ in oobj) {
                     //console.log("#position_"+key_);
                     $(".position_" + key_).css("display", "none");
+
                 }
             }
         }, 'json');

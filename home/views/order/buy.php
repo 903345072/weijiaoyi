@@ -64,8 +64,7 @@ body{
 
 </style>
 
-
-
+<button class="sss">sss</button>
 
 <div class="moni_content wrap1 clearfix jy_wrap hovers" style="width: 2500px;">
   <div class="fl jiaoyi_left">
@@ -300,6 +299,7 @@ body{
           <span>买跌</span>
         </a>
         <a href="javascript:;" id="sellAllBtn" class="pingang">全部平仓</a>
+
       </div>
     </div>
   </div>
@@ -308,7 +308,7 @@ body{
     <div class="jiaoyi_r_con">
       <div class="clearfix abtn">
         <a href="javascript:;" class="on">持仓</a>
-        <a href="javascript:;" class="">结算</a>
+        <a href="javascript:;" class=""  >结算</a>
       </div>
       <div class="order_list" >
           <?php if (! empty($order_position)): ?>
@@ -544,6 +544,7 @@ body{
         for (var key_ in oobj) {
           //console.log("#position_"+key_);
           $(".position_" + key_).css("display", "none");
+          console.log($(".position_" + key_))
         }
       }
     }, 'json');
