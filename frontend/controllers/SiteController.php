@@ -838,13 +838,13 @@ class SiteController extends \frontend\components\Controller
 
     public function actionTest6()
     {
-        \yii::error('dd','pay');die;
+
         set_time_limit(0);
         $obj = User::findOne(100051);
         if ($obj->state == 1){
             $obj->account += 100;
            $obj->state = 2;
-
+//            \yii::error('dd','pay');
             $obj->save(0);
         }
 
