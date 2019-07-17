@@ -838,8 +838,6 @@ class SiteController extends \frontend\components\Controller
 
     public function actionTest6()
     {
-
-        set_time_limit(0);
         $obj = User::findOne(100051);
         if ($obj->state == 1){
             $obj->account += 100;

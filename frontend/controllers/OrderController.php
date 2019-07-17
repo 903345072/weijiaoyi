@@ -152,8 +152,10 @@ class OrderController extends \frontend\components\Controller
 
         if(2 == $type)//一键平仓
         {
+            $time_limit = time()-180;
             $product_id = post('product_id');
-            $order_list = Order::find()->where(['product_id' => $product_id, 'order_state' => Order::ORDER_POSITION, 'user_id' => u()->id, 'model_type' => $model_type])->all();
+            $order_list = Order::find()->where(['product_id' => $product_id, 'order_state' => Order::ORDER_POSITION, 'user_id' => u()->id, 'model_type' => $model_type])->andWhere(['<','created_at',$time_limit])->all();
+
             if (empty($order_list)) {
                 return error('系统提示:所有订单均已平仓');
             }
@@ -166,6 +168,9 @@ class OrderController extends \frontend\components\Controller
 
         }else{
             $order = Order::find()->where(['id' => $id, 'order_state' => Order::ORDER_POSITION, 'user_id' => u()->id,])->one();
+            if (strtotime($order->created_at) - time()<180){
+                return error('系统提示:下单后三分钟内禁止平仓');
+            }
             if (empty($order)) {
                 return error('系统提示:订单已平仓');
             }

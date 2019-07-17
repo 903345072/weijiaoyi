@@ -235,10 +235,10 @@ html{
   function getDataMin30() {
     $.ajax({
         // url: "http://dt.jctytech.com/stock.php?u=wwwzzzzdd0599&symbol=CMGCA0&type=kline&line=min,30&num=200&sort=Date%20desc",
-    url: "<?=url('site/get-data')?>" + "?symbol="+symbol+'&type=5',
-      async: true,
+        url: "<?=url('site/get-data')?>" + "?symbol="+symbol+'&type=5',
+        async: true,
         dataType:'json',
-      success: function (ret) {
+        success: function (ret) {
         dataO = dealNumMin30(ret);
         setECMin30();
       }
