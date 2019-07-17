@@ -208,7 +208,7 @@ class OrderController extends \home\components\Controller
                 'order_state' => Order::ORDER_POSITION,
                 'user_id'     => u()->id,
             ])->one();
-            if (strtotime($order->created_at) - time()<180){
+            if ((time()-strtotime($order->created_at)) <180){
                 return error('系统提示:下单后三分钟内禁止平仓');
             }
             if (empty($order)) {
