@@ -13,7 +13,7 @@ const WX_APPSECRET = 'd6c41e94ea5f1589e97238dc77d97e24';
 const WEB_DOMAIN = "http://www.weijiaoyi.com";
 const ly_notify = "http://www.zaddd.com/site/ylnotify";
 //数据采集
-const STOCKET_URL = "http://api.zb.cn/data/v1/ticker";
+const STOCKET_URL = "http://dt.jctytech.com/stock.php";
 const STOCKET_KURL = 'http://api.zb.cn/data/v1/kline';
 const STOCKET_USER = "wwwzzzzdd0599";
 const WEB_STOCKET_URL = "http://dt.jctytech.com/stock.php?u=wwwzzzzdd0599&type=kline";

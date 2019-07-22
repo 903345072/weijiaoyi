@@ -783,7 +783,6 @@
 
     var typeArr = [
         {name: '美原油07', symbol: 'NECLN0'},
-        {name: '美黄金08', symbol: 'CMGCQ0'},
         {name: '美白银07', symbol: 'CMSIN0'},
         {name: '美精铜07', symbol: 'CMHGN0'},
         {name: 'DAX06', symbol: 'CEDAXM0'},
@@ -1066,7 +1065,9 @@
             });
         }else{
             $.ajax({
-                url: "<?=url('site/get-data')?>" + "?symbol="+symbol+'&type=5',
+                url: 'http://dt.jctytech.com/stock.php?u=wwwzzzzdd0599&symbol='+symbol+'&type=kline&line=min,30&num=100&sort=Date%20desc',
+
+                //url: "<?=url('site/get-data')?>" + "?symbol="+symbol+'&type=5',
                 async: true,dataType:'json',
                 success: function (ret) {
                     dataO = dealNumMin30(ret);
@@ -1081,7 +1082,9 @@
     function getDataMin30() {
         flag = 2;
         $.ajax({
-            url: "<?=url('site/get-data')?>" + "?symbol="+symbol+'&type=5',
+            url: 'http://dt.jctytech.com/stock.php?u=wwwzzzzdd0599&symbol='+symbol+'&type=kline&line=min,30&num=100&sort=Date%20desc',
+
+            //url: "<?=url('site/get-data')?>" + "?symbol="+symbol+'&type=5',
             async: true,dataType:'json',
             success: function (ret) {
                 dataO = dealNumMin30(ret);

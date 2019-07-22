@@ -32,8 +32,7 @@ class Gather extends \yii\base\Object
             id,
             price,
             Close,
-            time,
-            creat_time
+            time
         FROM
             data_{$name}
         ORDER BY
@@ -86,7 +85,6 @@ class Gather extends \yii\base\Object
                 }else{
                     $data2 = $data;
                     unset($data2['id']);
-
                     $res = Yii::$app->db->createCommand()->update('data_' . $name, $data2, 'id ='.$data['id'])->execute();
                 }
             }
@@ -105,8 +103,9 @@ class Gather extends \yii\base\Object
         $priceJson = @file_get_contents(Yii::getAlias('@frontend/web/price.json')) ?: '{}';
         $priceJson = json_decode($priceJson, true);
         foreach ($this->updateMap as $tableName => $info) {
+
             // 更新 data_all 的最新价格
-            self::dbUpdate('data_all', ['price'=>$info['price'],'time'=>date("Y-m-d H:i:s",$info['time'])], ['name' => $tableName]);
+            self::dbUpdate('data_all', ['price'=>$info['price']], ['name' => $tableName]);
             // 将所有更新的价格写入文件
             $priceJson[$tableName] = $info['price'];
         }

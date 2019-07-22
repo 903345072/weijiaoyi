@@ -19,12 +19,12 @@ return [
 
     // 交易产品列表
     'productCode'           => [
-        'cl'    => 'btc_usdt',
-        'p0'      =>'btc_qc',
-        'sr0'=>'eth_qc',
-        'm0'=>'ltc_qc',
-        'y0'=>'dash_qc',
-        'pp0' =>'bchabc_qc',
+        'cl'    => 'NECLU0',
+        'pp0' =>'WGCNN0',
+        'y0'=>'CEDAXU0',
+        'm0'=>'CMGCQ0',
+        'sr0'=>'HIHSI07',
+        'p0'=>'CENQU0'
 //        'pp0' =>'CEDAXM0',
 //        'y0'=>'CMHGN0',
 //        'm0'=>'CMGCQ0',
