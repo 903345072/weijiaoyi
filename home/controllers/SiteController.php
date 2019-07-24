@@ -82,7 +82,7 @@ class SiteController extends \home\components\Controller
         $data['LastClose'] = $data['close'];
         $data['Price2'] = 0;
         $data['Amount'] = 0;
-        $data['PriceChangeRatio']=0;
+        $data['PriceChangeRatio']=($data['NewPrice']-$data['LastClose'])*100/$data['LastClose'];
         echo json_encode($data);
         exit();
     }
