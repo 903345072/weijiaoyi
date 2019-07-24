@@ -207,7 +207,7 @@ body{
         <div class="jy_box_tab_list abroad">
             <?php foreach ($abroad as $k): ?>
               <p class="itemOne" data-symbol="<?= $k->dataAll->symbol ?>">
-                <a  class="jumpText" data-href="<?= url([
+                <a href="javascript:void(0)"  class="jumpText" data-href="<?= url([
                     'buy1',
                     'id'         => $k->id,
                     'model_type' => $model_type,
