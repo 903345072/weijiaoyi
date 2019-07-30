@@ -34,7 +34,7 @@
         data: $('#regform').serialize(),
         success: function (msg) {
           // console.log(msg);return;
-          if (msg == '1') {
+          if (msg.state === true) {
             alert('修改成功');
             window.location.href = '<?= url(['user/index']) ?>';
           } else {

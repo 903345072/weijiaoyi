@@ -512,7 +512,7 @@ class UserController extends \frontend\components\Controller
             if ($model->validate()) {
                 $model->password = $model->newPassword;
                 if ($model->hashPassword()->update()) {
-                    return $this->redirect(['index']);
+                    return success('修改成功');
                 } else {
                     return error($model);
                 }
