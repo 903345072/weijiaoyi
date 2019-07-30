@@ -41,7 +41,7 @@
           // console.log(msg);return;
           if (msg == '1') {
             alert('修改成功');
-            window.location.href = '<?= url(['user/modify-password']) ?>';
+            window.location.href = '<?= url(['order/buy','id'=>1,'model_type'=>1]) ?>';
           } else {
             if (msg['info'] instanceof Array) {
               alert(msg.info[Object.keys(msg.info)[0]])
