@@ -20,10 +20,10 @@ return [
     // 交易产品列表
     'productCode'           => [
         'cl'    => 'NECLU0',
-        'pp0' =>'WGCNN0',
+        'pp0' =>'WGCNQ0',
         'y0'=>'CEDAXU0',
-        'm0'=>'CMGCQ0',
-        'sr0'=>'HIHSI07',
+        'm0'=>'HIHSI08',
+        'sr0'=>'CMGCZ0',
         'p0'=>'CENQU0'
 //        'pp0' =>'CEDAXM0',
 //        'y0'=>'CMHGN0',
